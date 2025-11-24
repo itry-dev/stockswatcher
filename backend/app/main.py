@@ -81,13 +81,13 @@ def delete_watch(ticker: str):
 
 
 @app.get("/status", response_model=list[StatusRead])
-def status():
+def status(forceRefresh: bool = False):
     out = []
     fetched_any = False
     
     for w in repo.list_watches():
         try:
-            pc, was_fetched = stock_service.get_price(w.ticker)
+            pc, was_fetched = stock_service.get_price(w.ticker, force_update=forceRefresh)
             if not pc:
                 continue
             

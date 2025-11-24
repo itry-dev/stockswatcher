@@ -183,9 +183,9 @@ async function load() {
     await loadInfo()
 }
 
-async function loadStatus() {
+async function loadStatus(forceRefresh: boolean = false) {
     try {
-        const statuses = await getStatus()
+        const statuses = await getStatus(forceRefresh)
         for (const s of statuses) {
             statusMap.value[s.ticker] = s
         }
@@ -263,7 +263,7 @@ async function handleAdd(payload: WatchCreate) {
 async function handleRefreshNow() {
     isRefreshing.value = true
     try {
-        await loadStatus()
+        await loadStatus(true)
         await loadInfo()
     } catch (error) {
         console.error('Failed to refresh:', error)

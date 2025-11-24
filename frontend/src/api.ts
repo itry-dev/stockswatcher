@@ -12,8 +12,8 @@ export const saveWatch = (payload: WatchCreate): Promise<Watch> =>
 export const deleteWatch = (ticker: string): Promise<{ message: string }> => 
   api.delete<{ message: string }>(`/watches/${ticker}`).then(r => r.data)
 
-export const getStatus = (): Promise<StatusRead[]> => 
-  api.get<StatusRead[]>('/status').then(r => r.data)
+export const getStatus = (forceRefresh?: boolean): Promise<StatusRead[]> => 
+  api.get<StatusRead[]>('/status' + (forceRefresh ? '?forceRefresh=true' : '')).then(r => r.data)
 
 export const getInfo = (): Promise<InfoRead> => 
   api.get<InfoRead>('/info').then(r => r.data)
