@@ -32,7 +32,7 @@ export const useFormatters = () => {
 
   const formatPercent = (value: number | null | undefined) => {
     if (value == null) return 'N/A'
-    return `${(value * 100).toFixed(2)}%`
+    return `${((value * 100)/100).toFixed(2)}%`
   }
 
   const formatDecimal = (value: number | null | undefined, decimals: number = 2) => {
